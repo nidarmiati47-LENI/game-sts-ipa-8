@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal PTS IPA Kelas 8 SMP Semester Ganjil</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success: #16a34a;
+            --success-bg: #f0fdf4;
+            --danger: #dc2626;
+            --danger-bg: #fef2f2;
+            --warning-bg: #fffbeb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+        }
+
+        .meta-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .controls {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: #64748b;
+        }
+        .btn-secondary:hover {
+            background-color: #475569;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: #eff6ff;
+        }
+
+        .score-board {
+            display: none;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .score-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: border-color 0.2s ease;
+        }
+
+        .question-card.answered {
+            border-left: 4px solid var(--primary);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .q-number {
+            background: #eff6ff;
+            color: var(--primary);
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .q-topic {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .q-text {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+
+        .option-item.correct {
+            background-color: var(--success-bg) !important;
+            border-color: var(--success) !important;
+            color: #14532d;
+            font-weight: 600;
+        }
+
+        .option-item.wrong {
+            background-color: var(--danger-bg) !important;
+            border-color: var(--danger) !important;
+            color: #7f1d1d;
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 14px;
+            background-color: var(--warning-bg);
+            border-left: 4px solid #f59e0b;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #78350f;
+        }
+
+        .explanation h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            color: #b45309;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media print {
+            .controls, .btn, .explanation, .score-board {
+                display: none !important;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .question-card {
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Soal Penilaian Tengah Semester (PTS) Ganjil</h1>
+        <p>Mata Pelajaran: Ilmu Pengetahuan Alam (IPA) — Kelas VIII (8) SMP</p>
+        <div class="meta-info">
+            <span class="meta-badge">📋 Jumlah Soal: 40 Butir</span>
+            <span class="meta-badge">⏱️ Alokasi Waktu: 90 Menit</span>
+            <span class="meta-badge">🎯 Format: Pilihan Ganda (A, B, C, D)</span>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div>
+            <strong>Status:</strong> <span id="progress-text">0 dari 40 Soal Terjawab</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn" onclick="checkAnswers()">Kirim & Cek Jawaban</button>
+            <button class="btn btn-outline" onclick="toggleExplanations()">Buka Pembahasan</button>
+            <button class="btn btn-secondary" onclick="resetForm()">Reset Input</button>
+        </div>
+    </div>
+
+    <div id="score-board" class="score-board">
+        <h2>Hasil Evaluasi Anda</h2>
+        <div class="score-num" id="score-val">0 / 100</div>
+        <p id="score-desc" style="margin-top: 8px; color: var(--text-muted);"></p>
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container"></div>
+    </form>
+
+    <footer>
+        <p>© Modul Penilaian Tengah Semester IPA Kelas 8 SMP — Didesain untuk Pembelajaran Interaktif</p>
+    </footer>
+</div>
+
+<script>
+const questionsData = [
+    // BAB 1: SEL DAN MIKROSKOP (1-8)
+    {
+        id: 1,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Unit struktural dan fungsional terkecil penyusun makhluk hidup disebut...",
+        options: ["Jaringan", "Organ", "Sel", "Sistem Organ"],
+        answer: 2,
+        explanation: "Sel merupakan unit terkecil dari makhluk hidup yang menyelenggarakan fungsi kehidupan secara mandiri."
+    },
+    {
+        id: 2,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Bagian mikroskop yang berfungsi untuk memperbesar bayangan objek dari lensa objektif dan diamati langsung oleh mata dinamakan...",
+        options: ["Lensa Okuler", "Lensa Objektif", "Revolver", "Makrometer"],
+        answer: 0,
+        explanation: "Lensa okuler berada di dekat mata pengamat dan berfungsi memperbesar bayangan nyata dari lensa objektif."
+    },
+    {
+        id: 3,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Organel sel yang hanya dimiliki oleh sel tumbuhan dan berfungsi untuk proses fotosintesis adalah...",
+        options: ["Lisosom", "Kloroplas", "Sentrosom", "Mitokondria"],
+        answer: 1,
+        explanation: "Kloroplas mengandung klorofil yang menangkap energi cahaya matahari untuk proses fotosintesis pada tumbuhan."
+    },
+    {
+        id: 4,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Organel sel yang berfungsi sebagai tempat terjadinya respirasi seluler dan penghasil energi (ATP) adalah...",
+        options: ["Ribosom", "Badan Golgi", "Mitokondria", "Retikulum Endoplasma"],
+        answer: 2,
+        explanation: "Mitokondria sering dijuluki 'The Powerhouse of Cell' karena menghasilkan energi (ATP) melalui respirasi sel."
+    },
+    {
+        id: 5,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Perbedaan utama antara sel hewan dan sel tumbuhan adalah...",
+        options: [
+            "Sel hewan memiliki dinding sel, sel tumbuhan tidak",
+            "Sel tumbuhan memiliki dinding sel dan kloroplas, sel hewan tidak",
+            "Sel hewan memiliki vakuola besar, sel tumbuhan vakuola kecil",
+            "Sel tumbuhan tidak memiliki membran sel"
+        ],
+        answer: 1,
+        explanation: "Sel tumbuhan memiliki dinding sel yang kaku dan kloroplas untuk fotosintesis, sedangkan sel hewan tidak memilikinya."
+    },
+    {
+        id: 6,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Organel sel yang berperan penting dalam sintesis protein di dalam sel adalah...",
+        options: ["Ribosom", "Vakuola", "Peroksisom", "Lisosom"],
+        answer: 0,
+        explanation: "Ribosom berfungsi merangkai asam amino menjadi protein berdasarkan instruksi asam nukleat."
+    },
+    {
+        id: 7,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Spesialisasi sel tumbuhan berupa struktur seperti rambut pada permukaan sel epidermis akar berfungsi untuk...",
+        options: [
+            "Melindungi akar dari serangan hama",
+            "Memperluas bidang penyerapan air dan mineral dari tanah",
+            "Melakukan proses fotosintesis di dalam tanah",
+            "Menyimpan cadangan makanan hasil fotosintesis"
+        ],
+        answer: 1,
+        explanation: "Sel rambut akar merupakan spesialisasi sel epidermis akar yang memperluas luas permukaan untuk efisiensi penyerapan air."
+    },
+    {
+        id: 8,
+        topic: "Bab 1: Sel & Mikroskop",
+        question: "Sel darah merah (eritrosit) manusia tidak memiliki inti sel (nukleus) saat dewasa. Hal ini bertujuan untuk...",
+        options: [
+            "Mempercepat pembelahan sel darah",
+            "Memberikan ruang lebih luas bagi hemoglobin untuk mengikat oksigen",
+            "Memudahkan sel darah merah mencerna kuman penyakit",
+            "Mencegah sel darah merah dari kerusakan mekanis"
+        ],
+        answer: 1,
+        explanation: "Hilangnya inti sel pada eritrosit dewasa memaksimalkan volume sel untuk menampung hemoglobin pengikat oksigen."
+    },
+
+    // BAB 2: PENCERNAAN (9-16)
+    {
+        id: 9,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Zat makanan yang berfungsi sebagai sumber energi utama bagi tubuh manusia adalah...",
+        options: ["Protein", "Karbohidrat", "Vitamin", "Mineral"],
+        answer: 1,
+        explanation: "Karbohidrat (seperti glukosa dan amilum) merupakan sumber energi utama yang paling cepat diolah oleh tubuh."
+    },
+    {
+        id: 10,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Seorang siswa menguji ekstrak makanan dengan larutan Biuret dan menghasilkan warna ungu. Hal ini menunjukkan bahwa bahan makanan mengandung...",
+        options: ["Amilum / Pati", "Glukosa", "Protein", "Lemak"],
+        answer: 2,
+        explanation: "Uji Biuret digunakan untuk mengidentifikasi ikatan peptida pada protein, ditandai dengan perubahan warna menjadi ungu."
+    },
+    {
+        id: 11,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Enzim Amilase (Ptialin) yang dihasilkan oleh kelenjar ludah di mulut berfungsi untuk mengubah...",
+        options: [
+            "Protein menjadi pepton",
+            "Amilum menjadi glukosa/maltosa",
+            "Lemak menjadi asam lemak dan gliserol",
+            "Kaseinogen menjadi kasein"
+        ],
+        answer: 1,
+        explanation: "Enzim ptialin memecah karbohidrat kompleks (amilum) menjadi karbohidrat sederhana (maltosa/glukosa) di rongga mulut."
+    },
+    {
+        id: 12,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Gerakan meremas dan mendorong makanan pada dinding kerongkongan menuju lambung dinamakan...",
+        options: ["Gerak Amoeboid", "Gerak Peristaltik", "Gerak Brown", "Gerak Refleks"],
+        answer: 1,
+        explanation: "Gerak peristaltik adalah kontraksi dan relaksasi otot polos saluran pencernaan untuk mendorong makanan."
+    },
+    {
+        id: 13,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Asam klorida (HCl) yang diproduksi oleh getah lambung memiliki fungsi penting, yaitu...",
+        options: [
+            "Mengubah asam lemak menjadi gliserol",
+            "Membunuh kuman penyakit dan mengaktifkan pepsinogen menjadi pepsin",
+            "Emulsi lemak agar mudah dicerna",
+            "Mencerna karbohidrat secara mekanis"
+        ],
+        answer: 1,
+        explanation: "HCl mengasamkan suasana lambung untuk membunuh kuman serta mengaktifkan pepsinogen menjadi enzim pepsin aktif."
+    },
+    {
+        id: 14,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Proses penyerapan sari-sari makanan (nutrisi) terjadi terutama pada organ...",
+        options: ["Usus Besar (Kolon)", "Usus Halus (Ileum)", "Lambung", "Kerongkongan"],
+        answer: 1,
+        explanation: "Usus halus bagian ileum memiliki banyak jonjot usus (vili) yang berfungsi menyerap nutrisi ke dalam aliran darah."
+    },
+    {
+        id: 15,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Organ pencernaan yang berfungsi menyerap kembali air dari sisa-sisa makanan dan membentuk feses adalah...",
+        options: ["Usus Halus", "Usus Besar", "Lambung", "Pankreas"],
+        answer: 1,
+        explanation: "Usus besar (kolon) mengatur kadar air pada sisa makanan dan membusukkannya dengan bantuan bakteri E. coli."
+    },
+    {
+        id: 16,
+        topic: "Bab 2: Sistem Pencernaan",
+        question: "Gangguan pencernaan akibat peradangan pada selaput mukosa lambung yang ditandai rasa perih dan mual disebut...",
+        options: ["Diare", "Konstipasi", "Gastritis (Maag)", "Apendisitis"],
+        answer: 2,
+        explanation: "Gastritis atau maag terjadi akibat iritasi/peradangan pada lapisan dinding lambung oleh kelebihan HCl atau infeksi."
+    },
+
+    // BAB 2: PEREDARAN DARAH (17-24)
+    {
+        id: 17,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Komponen darah manusia yang mengandung protein hemoglobin dan berfungsi mengangkut oksigen ke seluruh tubuh adalah...",
+        options: ["Leukosit", "Eritrosit", "Trombosit", "Plasma Darah"],
+        answer: 1,
+        explanation: "Eritrosit (sel darah merah) kaya akan hemoglobin yang berfungsi mengikat dan mengangkut oksigen."
+    },
+    {
+        id: 18,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Komponen darah yang berperan utama dalam proses pembekuan darah saat terjadi luka adalah...",
+        options: ["Plasma darah", "Sel darah putih", "Keping darah (Trombosit)", "Sel darah merah"],
+        answer: 2,
+        explanation: "Trombosit pecah saat terjadi luka dan memicu pembentukan benang-benang fibrin untuk menutup luka."
+    },
+    {
+        id: 19,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Ruang jantung yang memiliki dinding otot paling tebal karena bertugas memompa darah ke seluruh tubuh adalah...",
+        options: ["Atrium Kanan", "Atrium Kiri", "Ventrikel Kanan", "Ventrikel Kiri"],
+        answer: 3,
+        explanation: "Ventrikel kiri memerlukan tekanan paling tinggi untuk memompa darah kaya oksigen ke seluruh tubuh."
+    },
+    {
+        id: 20,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Pernyataan yang BENAR mengenai perbedaan pembuluh darah Arteri (Nadi) dan Vena (Balik) adalah...",
+        options: [
+            "Arteri membawa darah menuju jantung, Vena membawa darah meninggalkan jantung",
+            "Arteri berdinding tipis, Vena berdinding tebal dan elastis",
+            "Arteri alirannya meninggalkan jantung, Vena alirannya menuju jantung",
+            "Arteri memiliki banyak katup di sepanjang pembuluh, Vena hanya satu"
+        ],
+        answer: 2,
+        explanation: "Arteri selalu mengalirkan darah keluar/meninggalkan jantung, sedangkan vena mengembalikan darah ke jantung."
+    },
+    {
+        id: 21,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Urutan skema peredaran darah besar pada manusia yang tepat adalah...",
+        options: [
+            "Bilik Kiri -> Seluruh Tubuh -> Serambi Kanan",
+            "Bilik Kanan -> Paru-paru -> Serambi Kiri",
+            "Serambi Kanan -> Bilik Kanan -> Paru-paru",
+            "Bilik Kiri -> Paru-paru -> Serambi Kanan"
+        ],
+        answer: 0,
+        explanation: "Peredaran darah besar: Bilik Kiri -> Aorta -> Seluruh Tubuh -> Vena Cava -> Serambi Kanan."
+    },
+    {
+        id: 22,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Sistem peredaran darah kecil bertugas mengalirkan darah dari jantung menuju paru-paru. Urutannya adalah...",
+        options: [
+            "Bilik Kiri -> Paru-paru -> Serambi Kiri",
+            "Bilik Kanan -> Paru-paru -> Serambi Kiri",
+            "Serambi Kanan -> Paru-paru -> Bilik Kiri",
+            "Bilik Kanan -> Seluruh Tubuh -> Serambi Kanan"
+        ],
+        answer: 1,
+        explanation: "Peredaran darah kecil: Bilik Kanan -> Arteri Pulmonalis -> Paru-paru -> Vena Pulmonalis -> Serambi Kiri."
+    },
+    {
+        id: 23,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Golongan darah yang disebut sebagai resipien universal karena dapat menerima transfusi dari semua golongan darah adalah...",
+        options: ["Golongan Darah A", "Golongan Darah B", "Golongan Darah AB", "Golongan Darah O"],
+        answer: 2,
+        explanation: "Golongan darah AB tidak memiliki antibodi A maupun B dalam plasmanya sehingga dapat menerima transfusi dari semua golongan darah."
+    },
+    {
+        id: 24,
+        topic: "Bab 2: Peredaran Darah",
+        question: "Penyakit yang ditandai dengan penurunan kadar hemoglobin atau jumlah sel darah merah di bawah normal dinamakan...",
+        options: ["Hipertensi", "Anemia", "Leukimia", "Aterosklerosis"],
+        answer: 1,
+        explanation: "Anemia adalah kondisi penurunan kadar hemoglobin atau eritrosit sehingga pengangkutan oksigen terganggu."
+    },
+
+    // BAB 3: USAHA DAN PESAWAT SEDERHANA (25-32)
+    {
+        id: 25,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Dalam fisika, usaha (W) dinyatakan terjadi apabila...",
+        options: [
+            "Ada gaya yang bekerja tanpa menghasilkan perpindahan",
+            "Ada gaya yang bekerja dan menyebabkan benda berpindah tempat",
+            "Benda diam meskipun didorong dengan gaya sangat besar",
+            "Gaya bekerja tegak lurus terhadap arah perpindahan"
+        ],
+        answer: 1,
+        explanation: "Usaha (W = F x s) terjadi jika gaya F yang diberikan menyebabkan perpindahan s pada benda."
+    },
+    {
+        id: 26,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Sebuah balok ditarik dengan gaya F = 50 N sehingga berpindah sejauh 4 meter. Besar usaha yang dilakukan adalah...",
+        options: ["12.5 Joule", "46 Joule", "200 Joule", "250 Joule"],
+        answer: 2,
+        explanation: "W = F x s = 50 N x 4 m = 200 Joule."
+    },
+    {
+        id: 27,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Besarnya usaha yang dilakukan per satuan waktu dinamakan...",
+        options: ["Energi", "Daya", "Gaya", "Kecepatan"],
+        answer: 1,
+        explanation: "Daya (P) didefinisikan sebagai laju usaha tiap satuan waktu (P = W / t), dengan satuan Watt."
+    },
+    {
+        id: 28,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Gunting, linggis, dan jungkat-jungkit merupakan contoh tuas jenis pertama karena...",
+        options: [
+            "Titik tumpu berada di antara titik beban dan titik kuasa",
+            "Titik beban berada di antara titik tumpu dan titik kuasa",
+            "Titik kuasa berada di antara titik tumpu dan titik beban",
+            "Titik tumpu berada di ujung beban"
+        ],
+        answer: 0,
+        explanation: "Tuas jenis I memiliki susunan Tumpu di tengah (antara Beban dan Kuasa)."
+    },
+    {
+        id: 29,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Sebuah pengungkit memiliki lengan kuasa 120 cm dan lengan beban 30 cm. Keuntungan mekanis (KM) tuas tersebut adalah...",
+        options: ["0.25", "4", "90", "360"],
+        answer: 1,
+        explanation: "Keuntungan Mekanis KM = Lk / Lb = 120 cm / 30 cm = 4."
+    },
+    {
+        id: 30,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Katrol tetap yang biasa digunakan pada tiang bendera atau sumur timba memiliki nilai Keuntungan Mekanis sebesar...",
+        options: ["1", "2", "3", "4"],
+        answer: 0,
+        explanation: "Katrol tetap tidak memperkecil besar gaya (KM = 1), melainkan hanya mengubah arah gaya."
+    },
+    {
+        id: 31,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Alat-alat berikut yang memanfaatkan prinsip kerja bidang miring adalah...",
+        options: [
+            "Pisau, sekrup, dan jalan di pegunungan",
+            "Gunting, gerobak roda satu, dan pinset",
+            "Katrol sumur, roda sepeda, dan catut",
+            "Linggis, pembuka botol, dan sapu"
+        ],
+        answer: 0,
+        explanation: "Pisau, sekrup, serta jalan pegunungan yang berkelok merupakan penerapan konsep bidang miring."
+    },
+    {
+        id: 32,
+        topic: "Bab 3: Usaha & Pesawat Sederhana",
+        question: "Saat seseorang berjinjit menggunakan ujung kakinya, otot betis bekerja menerapkan prinsip tuas jenis...",
+        options: ["Jenis Pertama", "Jenis Kedua", "Jenis Ketiga", "Jenis Keempat"],
+        answer: 1,
+        explanation: "Berjinjit menerapkan Tuas Jenis Ke-2: Tumpu pada jari kaki, Beban di tengah (berat badan), Kuasa pada otot betis."
+    },
+
+    // BAB 2 (Lanjutan): PERNAPASAN & EKSKRESI (33-40)
+    {
+        id: 33,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Urutan organ pernapasan manusia dari luar ke dalam yang benar adalah...",
+        options: [
+            "Hidung - Faring - Laring - Trakea - Bronkus - Alveolus",
+            "Hidung - Laring - Faring - Bronkus - Trakea - Alveolus",
+            "Hidung - Trakea - Faring - Bronkus - Alveolus",
+            "Hidung - Bronkus - Trakea - Laring - Alveolus"
+        ],
+        answer: 0,
+        explanation: "Urutan saluran pernapasan: Hidung -> Faring -> Laring -> Trakea -> Bronkus -> Bronkiolus -> Alveolus."
+    },
+    {
+        id: 34,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Proses pertukaran gas oksigen (O2) dan karbon dioksida (CO2) di dalam paru-paru terjadi pada struktur...",
+        options: ["Bronkus", "Bronkiolus", "Alveolus", "Trakea"],
+        answer: 2,
+        explanation: "Alveolus berupa kantung udara berdinding tipis dikelilingi kapiler darah tempat terjadinya difusi O2 dan CO2."
+    },
+    {
+        id: 35,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Pada mekanisme pernapasan perut, fase inspirasi (menghirup udara) terjadi apabila...",
+        options: [
+            "Otot diafragma berkontraksi sehingga diafragma mendatar",
+            "Otot diafragma berelaksasi sehingga diafragma melengkung",
+            "Otot antar tulang rusuk berelaksasi",
+            "Rongga dada mengecil dan tekanan udara naik"
+        ],
+        answer: 0,
+        explanation: "Inspirasi pernapasan perut: Diafragma berkontraksi (mendatar) -> Rongga dada membesar -> Tekanan mengecil -> Udara masuk."
+    },
+    {
+        id: 36,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Gangguan pernapasan kronis akibat infeksi bakteri Mycobacterium tuberculosis yang menyebabkan bintil pada alveolus adalah...",
+        options: ["Asma", "TBC (Tuberkulosis)", "Pneumonia", "Emfisema"],
+        answer: 1,
+        explanation: "TBC disebabkan oleh bakteri Mycobacterium tuberculosis yang merusak jaringan paru-paru."
+    },
+    {
+        id: 37,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Organ ekskresi utama manusia beserta zat sisa yang dikeluarkannya yang tepat adalah...",
+        options: [
+            "Ginjal mengeluarkan empedu",
+            "Kulit mengeluarkan uap air dan CO2",
+            "Paru-paru mengeluarkan karbondioksida dan uap air",
+            "Hati mengeluarkan keringat"
+        ],
+        answer: 2,
+        explanation: "Paru-paru mengekskresikan sisa metabolisme sel berupa CO2 dan uap air (H2O)."
+    },
+    {
+        id: 38,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Tahap penyaringan darah pada pembentukan urine yang terjadi di Glomerulus menghasilkan...",
+        options: ["Urine Primer", "Urine Sekunder", "Urine Sesungguhnya", "Empedu"],
+        answer: 0,
+        explanation: "Proses filtrasi darah di Glomerulus menghasilkan Filtrat Glomerulus atau Urine Primer."
+    },
+    {
+        id: 39,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Kondisi ditemukannya sel-sel protein dalam urine akibat kerusakan glomerulus ginjal dinamakan penyakit...",
+        options: ["Diabetes Insipidus", "Albuminuria", "Batu Ginjal", "Nefritis"],
+        answer: 1,
+        explanation: "Albuminuria terjadi ketika glomerulus rusak sehingga gagal menyaring protein dan protein lolos ke dalam urine."
+    },
+    {
+        id: 40,
+        topic: "Bab 2: Pernapasan & Ekskresi",
+        question: "Selain sebagai organ ekskresi penyedia kelenjar keringat, kulit juga berfungsi sebagai...",
+        options: [
+            "Tempat pembentukan sel darah merah",
+            "Pengatur suhu tubuh (termoregulasi) dan pelindung jaringan",
+            "Tempat penyerapan nutrisi utama",
+            "Penghasil enzim pencernaan"
+        ],
+        answer: 1,
+        explanation: "Kulit berfungsi menjaga kestabilan suhu tubuh (termoregulasi) serta melindungi jaringan tubuh di bawahnya."
+    }
+];
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    questionsData.forEach((q) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-card-${q.id}`;
+
+        let optionsHtml = '';
+        q.options.forEach((opt, optIdx) => {
+            const letter = String.fromCharCode(65 + optIdx);
+            optionsHtml += `
+                <li class="option-item" id="opt-${q.id}-${optIdx}">
+                    <input type="radio" name="q${q.id}" id="q${q.id}_${optIdx}" value="${optIdx}" onchange="markAnswered(${q.id})">
+                    <label for="q${q.id}_${optIdx}"><strong>${letter}.</strong> ${opt}</label>
+                </li>
+            `;
+        });
+
+        card.innerHTML = `
+            <div class="question-header">
+                <span class="q-number">Soal Nomor ${q.id}</span>
+                <span class="q-topic">${q.topic}</span>
+            </div>
+            <div class="q-text">${q.id}. ${q.question}</div>
+            <ul class="options-list">
+                ${optionsHtml}
+            </ul>
+            <div class="explanation" id="exp-${q.id}">
+                <h4>💡 Kunci & Pembahasan:</h4>
+                <p><strong>Jawaban Benar: ${String.fromCharCode(65 + q.answer)}</strong></p>
+                <p style="margin-top: 4px;">${q.explanation}</p>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function markAnswered(qId) {
+    document.getElementById(`q-card-${qId}`).classList.add('answered');
+    updateProgress();
+}
+
+function updateProgress() {
+    const answeredCount = document.querySelectorAll('.question-card.answered').length;
+    document.getElementById('progress-text').innerText = `${answeredCount} dari 40 Soal Terjawab`;
+}
+
+function checkAnswers() {
+    let score = 0;
+    let correctCount = 0;
+
+    questionsData.forEach((q) => {
+        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+
+        for (let i = 0; i < 4; i++) {
+            const item = document.getElementById(`opt-${q.id}-${i}`);
+            item.classList.remove('correct', 'wrong');
+        }
+
+        if (selected) {
+            const userVal = parseInt(selected.value);
+            if (userVal === q.answer) {
+                score += 2.5;
+                correctCount++;
+                document.getElementById(`opt-${q.id}-${userVal}`).classList.add('correct');
+            } else {
+                document.getElementById(`opt-${q.id}-${userVal}`).classList.add('wrong');
+                document.getElementById(`opt-${q.id}-${q.answer}`).classList.add('correct');
+            }
+        } else {
+            document.getElementById(`opt-${q.id}-${q.answer}`).classList.add('correct');
+        }
+
+        document.getElementById(`exp-${q.id}`).style.display = 'block';
+    });
+
+    const scoreBoard = document.getElementById('score-board');
+    scoreBoard.style.display = 'block';
+    document.getElementById('score-val').innerText = `${score} / 100`;
+
+    let desc = `Anda menjawab benar <strong>${correctCount}</strong> dari <strong>40</strong> soal. `;
+    if (score >= 85) {
+        desc += "Sangat Baik! Pemahaman materi IPA Anda luar biasa 🎉";
+    } else if (score >= 70) {
+        desc += "Bagus! Anda sudah menguasai sebagian besar materi IPA 👍";
+    } else {
+        desc += "Perlu Belajar Lagi! Pelajari kembali pembahasan untuk meningkatkan pemahaman 📚";
+    }
+    document.getElementById('score-desc').innerHTML = desc;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleExplanations() {
+    questionsData.forEach((q) => {
+        const exp = document.getElementById(`exp-${q.id}`);
+        exp.style.display = (exp.style.display === 'block') ? 'none' : 'block';
+    });
+}
+
+function resetForm() {
+    document.getElementById('quiz-form').reset();
+    document.getElementById('score-board').style.display = 'none';
+    
+    questionsData.forEach((q) => {
+        document.getElementById(`q-card-${q.id}`).classList.remove('answered');
+        document.getElementById(`exp-${q.id}`).style.display = 'none';
+        for (let i = 0; i < 4; i++) {
+            const item = document.getElementById(`opt-${q.id}-${i}`);
+            if (item) item.classList.remove('correct', 'wrong');
+        }
+    });
+
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.onload = renderQuestions;
+</script>
+</body>
+</html>
